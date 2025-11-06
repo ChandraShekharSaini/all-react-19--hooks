@@ -1,23 +1,23 @@
-import React, { useRef } from 'react'
-import InputRef from './InputRef'
+import React, { useRef } from "react";
+import InputFiled from "./InputRef";
 
 const UseRef1 = () => {
-    const inputRef = useRef()
+  const InputR = useRef();
 
-    const handleUpdate = () => {
-        inputRef.current.value = 1000;
-        inputRef.current.focus()
-        inputRef.current.style = "red"
-    }
+  const handleChange = ()=>{
+ 
+    InputR.current.style = "red"
+    InputR.current.focus()
+    InputR.current.value = 1222
 
-    return (
-        <>
-            <div>useRef1</div>
-            <InputRef ref={inputRef} />
-            <br></br>
-            <button onClick={handleUpdate} >Update</button>
-        </>
-    )
-}
+  }
+  return (
+    <div>
+      <InputFiled ref={InputR} />
+    
+      <button onClick={handleChange}>Click Here</button>
+    </div>
+  );
+};
 
-export default UseRef1
+export default UseRef1;

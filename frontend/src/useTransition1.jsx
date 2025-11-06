@@ -1,37 +1,30 @@
-import { Button } from 'bootstrap';
-import React, { useState, useTransition } from 'react'
+import { useTransition } from "react";
 
-const useTransition1 = () => {
-
-  const [isPending, startTransition] = useTransition();
-  const [isloading, setloading] = useState(false)
+const UseTransition = () => {
+  const [pending, startTransotion] = useTransition(false);
 
   const handleSubmit = () => {
+    console.log("Delay start");
 
-    // setloading(true)
+    
+    startTransotion(async () => {
+      await new Promise((res) => setTimeout(res, 4000));
+    });
 
-    startTransition(async () => {
-      await new Promise(resolve => setTimeout(resolve, 4000))
-
-    })
-
-    // setloading(false)
-  }
+    console.log("Delay end");
+  };
 
   return (
-
     <div>
-      <div>
-        <button disabled={isPending} type='submit' onClick={handleSubmit}>Click</button>
+      <button disabled={pending} onClick={handleSubmit}>
+        Submit
+      </button>
 
-      </div>
-
-
-      {
-        isPending ? <img style={{ width: "500px" }} src="https://res.cloudinary.com/bytesizedpieces/image/upload/v1656084931/article/a-how-to-guide-on-making-an-animated-loading-image-for-a-website/animated_loader_gif_n6b5x0.gif" alt="" srcset="" /> : null
-      }
+      {pending ? (
+        <img src="https://i.gifer.com/origin/d3/d3f472b06590a25cb4372ff289d81711_w200.gif" />
+      ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default useTransition1
+export default UseTransition;

@@ -1,39 +1,28 @@
-import React, { useImperativeHandle,  useRef } from 'react'
+import React, { useImperativeHandle } from "react";
+import { useRef } from "react";
 
 const UseImperativeRefChild = (props) => {
+  console.log(props.ref);
 
-    const inputRef = useRef()
+  const  inputRef = useRef();
 
-    useImperativeHandle(props.ref, () => ({
+  useImperativeHandle(props.ref,() =>({
+       focusInput() {
+        inputRef.current.focus();
+      },
 
-        focusInput() {
-            inputRef.current.focus()
-        },
+      styleInput() {
+        inputRef.current.style.backgroundColor = "red";
+      },
 
-        clearInput() {
-            inputRef.current.value = ''
-        },
+       clearInput() {
+        inputRef.current.value = ""
+      }
+    }),
+    []
+  );
 
-        styleInput() {
-            inputRef.current.style = 'red'
-            inputRef.current.style.background = 'red'
-            if( inputRef.current.style.background == 'red'){
-                inputRef.current.style.color = 'white'
-            }
+  return <input placeholder="Enter Data" ref={inputRef} />;
+};
 
-        }
-    }), [])
-
-
-    return (
-        <input ref={inputRef} type='text' placeholder='Enter' />
-    )
-}
-
-
-
-
-
-
-
-export default UseImperativeRefChild
+export default UseImperativeRefChild;

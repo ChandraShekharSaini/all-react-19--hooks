@@ -1,47 +1,91 @@
-import React, { useActionState } from 'react'
-import { UNSAFE_createClientRoutesWithHMRRevalidationOptOut } from 'react-router-dom'
+import React, { useActionState } from "react";
 
 const useActionState1 = () => {
+  const fun = async (prevState, formData) => {
+    const password = formData.get("password");
+    const username = formData.get("username");
 
-    const addUser = (prevData, formData) => {
-        const name = formData.get('name')
-        const password = formData.get('password')
+    await new Promise((res) => setTimeout(res, 4000));
 
-        new Promise(resolve => setTimeout(resolve, 3000))
+    if (!password && !username) return { error: "Credentials Not Filled" };
+    if (!password) return { error: "Password Not Filled" };
+    if (!username) return { error: "Username Not Filled" };
 
-        if (!name) return { error: "Name field is empty" }
+    return { success: "Form Submitted Successfully" };
+  };
 
-        if (!password) return { error: "Password field is empty" }
+  const [message, action, ispending] = useActionState(fun, {
+    error: "Form Not Submitted",
+  });
 
-        if (name && password) return { message: "Form Submitted Successfully" }
-    }
+  console.log(ispending);
 
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        textAlign: "center",
+      }}
+    >
+      {ispending ? (
+        <h4 style={{ fontSize: "20px", color:"red" }}>
+          {" "}
+          useActionState React(19){" "}
+        </h4>
+      ) : (
+        <h4 style={{ fontSize: "20px", color: "green" }}>
+          {" "}
+          useActionState React(19){" "}
+        </h4>
+      )}
+      <form
+        action={action}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          padding: "20px",
+          border: "1px solid black",
+          width: "50%",
+          margin: "auto",
+        }}
+      >
+        <input
+          style={{
+            padding: "5px 10px",
+            outline: "none",
+            border: "2px solid red",
+            borderRadius: "5px",
+          }}
+          placeholder="Enter UserName"
+          name="username"
+        />
+        <input
+          style={{
+            padding: "5px 10px",
+            outline: "none",
+            border: "2px solid red",
+            borderRadius: "5px",
+          }}
+          placeholder="Enter Password"
+          name="password"
+        />
+        <button style={{ padding: "5px 0", cursor: "pointer" }}>
+          {ispending ? <p>Submiting...</p> : <p>Submit</p>}
+        </button>
+      </form>
 
-    const [data, action, ispending] = useActionState(addUser, { error: "Form Not Submitted" })
+      <div>
+        {message.success ? (
+          <p style={{ fontSize: "18px", color: "green" }}>{message.success}</p>
+        ) : (
+          <p style={{ fontSize: "18px", color: "red" }}>{message.error}</p>
+        )}
+      </div>
+    </div>
+  );
+};
 
-
-
-    return (
-        < section style={{ width: "100%", height: "50vh", text: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-
-            <div>
-                <h1>useActionState (React 19)</h1>
-            </div>
-
-
-            <form action={action} style={{ border: "1px solid black ", padding: "10px", width: "50%", margin: "auto", display: "flex", flexDirection: "column", gap: "10px" }}>
-                <input type='text' name='name' placeholder='Enter Name' style={{ padding: "10px", outline: "none", border: "1px solid red", borderRadius: "5px" }} />
-                <br></br>
-                <input type='password' name='password' placeholder='Enter Password' style={{ padding: "10px", outline: "none", border: "1px solid red", borderRadius: "5px" }} />
-                <br></br>
-                <button type='submit' style={{ padding: "5px 10px ", outline: "none", border: "none", backgroundColor: "red", color: "white" }}>Submit</button>
-            </form>
-
-            {
-                data?.message ? (<p style={{ color: "green", fontSize: "18px", fontWeight: "600px" }}>{data?.message} </p>) : (<p style={{ color: "red", fontSize: "18px", fontWeight: "600px" }}>{data?.error}</p>)
-            }
-        </section>
-    )
-}
-
-export default useActionState1
+export default useActionState1;

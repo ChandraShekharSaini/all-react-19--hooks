@@ -1,22 +1,24 @@
-
 // Old Method
-// import React, { forwardRef } from 'react'
+// import React, { forwardRef } from "react";
+
 // const InputRef = (props, ref) => {
-//     return (
-//         <input type='text' placeholder='Enter ' ref={ref} />
-//     )
-// }
+//   console.log(ref);
+//   return (
+//     <div>
+//       <input placeholder="Enter Data" ref={ref} />
+//     </div>
+//   );
+// };
 
-// export default forwardRef(InputRef)
+// export default forwardRef(InputRef);
 
-
-import React from "react";
 const InputRef = (props) => {
+  console.log(props);
+  return (
+    <div>
+      <input placeholder="Enter"  ref={props.ref}/>
+    </div>
+  );
+};
 
-    console.log(props)
-    return (
-        <input type="text" placeholder="Enter" ref={props.ref} />
-    )
-}
-
-export default InputRef
+export default InputRef;

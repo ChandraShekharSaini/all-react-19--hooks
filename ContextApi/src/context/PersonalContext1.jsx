@@ -6,6 +6,7 @@ const ChildContext = createContext({
 });
 
 const PersonalContext1 = ({ children }) => {
+  
   const ChildData = {
     name: "Chandra Shekhar Saini",
     age: 21,

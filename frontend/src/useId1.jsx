@@ -30,9 +30,6 @@ const useId1 = () => {
             </div>
 
 
-
-
-
             <div style={{ border: "1px solid red" }}>
                 <label htmlFor={`${id1}-username`} >Username {id1}</label>
                 <input id={`${id1}-username`} type='text' placeholder='Enter' />
