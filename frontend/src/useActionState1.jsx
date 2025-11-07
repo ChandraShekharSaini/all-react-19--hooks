@@ -1,21 +1,22 @@
 import React, { useActionState } from "react";
 
 const useActionState1 = () => {
+
   const fun = async (prevState, formData) => {
     const password = formData.get("password");
     const username = formData.get("username");
-
-    await new Promise((res) => setTimeout(res, 4000));
 
     if (!password && !username) return { error: "Credentials Not Filled" };
     if (!password) return { error: "Password Not Filled" };
     if (!username) return { error: "Username Not Filled" };
 
+    await new Promise((res) => setTimeout(res, 4000));
+
     return { success: "Form Submitted Successfully" };
   };
 
   const [message, action, ispending] = useActionState(fun, {
-    error: "Form Not Submitted",
+    error: "",
   });
 
   console.log(ispending);
@@ -30,7 +31,7 @@ const useActionState1 = () => {
       }}
     >
       {ispending ? (
-        <h4 style={{ fontSize: "20px", color:"red" }}>
+        <h4 style={{ fontSize: "20px", color: "red" }}>
           {" "}
           useActionState React(19){" "}
         </h4>
