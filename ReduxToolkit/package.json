@@ -1,5 +1,5 @@
 {
-  "name": "reduxtooolkit",
+  "name": "reduxtoolkit",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,6 @@
     "@reduxjs/toolkit": "^2.10.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-error-boundary": "^6.0.0",
     "react-redux": "^9.2.0",
     "redux-persist": "^6.0.0"
   },
